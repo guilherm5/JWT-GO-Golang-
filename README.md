@@ -46,4 +46,5 @@ this will generate you a jwt token</p>
 
 <p>method get: localhost:5000/getUser</p>
 <img src="./img/get-user-middleware.png" alt="how to get user">
+<h2> don't forget to update the credentials for your local bank, you can do this by changing the .env file</h2>
 
