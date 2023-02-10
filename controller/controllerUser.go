@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/guilherm5/autenticacaoUsuario/database"
 	"github.com/guilherm5/autenticacaoUsuario/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var DB = database.Init()
@@ -59,7 +60,16 @@ func PostUser() gin.HandlerFunc {
 		}
 
 		for _, add := range postUser.Records {
-			_, err := posting.Exec(add.NameUser, add.EmailUser, add.PasswordUser)
+			bytes, err := bcrypt.GenerateFromPassword([]byte(add.PasswordUser), 14)
+			if err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{
+					"erro ao executar encript da senha postUser ": err,
+				})
+				log.Println("erro ao executar encript da senha postUser ", err)
+			}
+			log.Println(bytes)
+
+			_, err = posting.Exec(add.NameUser, add.EmailUser, bytes)
 			if err != nil {
 				c.JSON(http.StatusBadRequest, gin.H{
 					"erro ao executar insert postUser ": err,
@@ -68,10 +78,10 @@ func PostUser() gin.HandlerFunc {
 			} else {
 				c.JSON(http.StatusOK, add)
 			}
+
 		}
 	}
 }
-
 func PutUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var update models.InsertUsers
