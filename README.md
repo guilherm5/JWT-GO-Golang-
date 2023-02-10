@@ -48,3 +48,10 @@ this will generate you a jwt token</p>
 <img src="./img/get-user-middleware.png" alt="how to get user">
 <h2> don't forget to update the credentials for your local bank, you can do this by changing the .env file</h2>
 
+
+<h1>Technologies used:</h2>
+<h4>Golang</h4>
+<h4>Gin</h4>
+<h4>Libpq</h4>
+<h4>Postgresql</h4>
+<h4>JWT</h4>
